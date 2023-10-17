@@ -4,8 +4,6 @@ from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.contrib.auth import get_user_model
 
-from .serializers import MessageSerializer
-from .models import Message
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -69,6 +67,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def get_messages(self):
+        from .serializers import MessageSerializer
+        from .models import Message
         messages = []
         for instance in Message.objects.filter(thread_name=self.room_group_name):
             messages = MessageSerializer(instance).data
@@ -76,4 +76,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def save_message(self, sender,reciever, message, thread_name):
+        from .serializers import MessageSerializer
+        from .models import Message
         Message.objects.create(sender=sender, receiver=reciever, message=message, thread_name=thread_name)
