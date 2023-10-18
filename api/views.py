@@ -386,7 +386,7 @@ class NotificationRead(RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
 
 
-# Company LIst in Userside
+# Company Apply in Userside
 class CompaniesList(ListAPIView):
     serializer_class = CompanyiesChattingLIst
     filter_backends = [SearchFilter]
@@ -397,4 +397,10 @@ class CompaniesList(ListAPIView):
         user_id = self.kwargs['id'] 
         return ApplyJobs.objects.filter(userInfo__userId=user_id, accepted=True).order_by('userInfo__userId', 'created_at').distinct('userInfo__userId')
 
-
+# Company all List userside
+class AllCompanyList(ListCreateAPIView):
+    queryset = CompanyInfo.objects.all()
+    serializer_class = CompanyListserializer
+    filter_backends = [SearchFilter]
+    search_fields = ['comanyInfo__company_name']
+    pagination_class = PageNumberPagination

@@ -44,6 +44,8 @@ urlpatterns = [
     path('NotificationRead/<int:id>/', NotificationRead.as_view(), name='NotificationRead'),
 
     path('CompaniesList/<int:id>/',CompaniesList.as_view(),name='CompaniesList'),
+    
+    path('allcompanylist/',AllCompanyList.as_view(),name='AllCompanyList'),
    
 
     

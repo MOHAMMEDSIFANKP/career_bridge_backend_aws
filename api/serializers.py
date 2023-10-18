@@ -232,3 +232,9 @@ class CompanyiesChattingLIst(ModelSerializer):
         model = ApplyJobs
         fields = ['userId','email','company_name','profile_image']
 
+# CompanyList in user company option
+class CompanyListserializer(ModelSerializer):
+    userId = UserSerializer()
+    class Meta:
+        model = CompanyInfo
+        fields = '__all__'
