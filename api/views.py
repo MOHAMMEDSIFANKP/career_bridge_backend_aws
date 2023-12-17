@@ -40,7 +40,7 @@ class UserRegister(CreateAPIView):
             user.role = "user"
             user.set_password(password)
             user.save()
-            send_activation_email.delay(email, user.pk)
+            send_activation_email.delay(email, user.pk,request)
 
             response_data = {
                 'status': 'success',
@@ -92,7 +92,7 @@ def activate(request, uidb64, token):
             
     else:
         message = 'Invalid activation link'
-        redirect_url = 'http://localhost:5173/login/' + '?message=' + message
+        redirect_url = Baseurl + '?message=' + message
 
     return HttpResponseRedirect(redirect_url)
 
