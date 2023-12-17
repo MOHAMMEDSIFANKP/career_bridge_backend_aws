@@ -40,7 +40,7 @@ class UserRegister(CreateAPIView):
             user.role = "user"
             user.set_password(password)
             user.save()
-            send_activation_email.delay(email, user.pk,request)
+            send_activation_email.delay(email, user.pk)
 
             response_data = {
                 'status': 'success',
